@@ -49,7 +49,24 @@ test "posesiones" {
 	assert.that(rolando.tengoArtefacto(armaduraValyrio))
 	assert.notThat(rolando.tengoArtefacto(libroDeHechizos))
 }
-
-//test "historia" {
-	
-//}
+test "historia" {
+	assert.equals([], rolando.queLlevo())
+	rolando.recolectaObjeto(espadaDelDestino)
+	assert.equals([espadaDelDestino], rolando.queLlevo())
+	assert.equals([espadaDelDestino], rolando.queLevante())
+	rolando.recolectaObjeto(libroDeHechizos)
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLevante())
+	rolando.recolectaObjeto(collarDivino)
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLevante())	
+	rolando.dejarEnCastillo()
+	assert.equals([], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLevante())
+	rolando.recolectaObjeto(armaduraValyrio)
+	assert.equals([armaduraValyrio], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos, armaduraValyrio], rolando.queLevante())
+	rolando.recolectaObjeto(collarDivino)
+	assert.equals([armaduraValyrio, collarDivino], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos, armaduraValyrio, collarDivino], rolando.queLevante())
+}
