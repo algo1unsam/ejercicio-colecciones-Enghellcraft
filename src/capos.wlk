@@ -26,6 +26,9 @@ object rolando {
 		castillo.guardoEnAlijo(artefactos)
 		artefactos.removeAll(artefactos)
 	}
+	method tengoArtefacto(_artefacto){
+		return ordenArtefactos.contains(_artefacto)
+	}
 	method nuevoPoder(_artefacto){
 		poderDePelea += _artefacto.cuanPoderoso()
 	}
