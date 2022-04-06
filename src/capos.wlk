@@ -1,10 +1,11 @@
 
 object rolando {
-	var artefactos = #{}
-	var ordenArtefactos = []
+	const artefactos = []
+	const ordenArtefactos = []
 	var poderDePelea = 5
+	const capacidad = 2
 	method recolectaObjeto(_artefacto){
-		if (artefactos.size() <= 2){
+		if (artefactos.size() <= capacidad){
 			ordenArtefactos.add(_artefacto)
 			artefactos.add(_artefacto)
 			}
@@ -13,9 +14,9 @@ object rolando {
 		return artefactos
 	}
 	method queTengo(){
-		var inventario = #{}
+		const inventario = #{}
 		inventario.addAll(artefactos)
-		inventario.addAll(castillo.alijo)
+		inventario.addAll(castillo.queHayEnAlijo())
 		return inventario
 	}
 	method queLevante(){
@@ -25,27 +26,35 @@ object rolando {
 		castillo.guardoEnAlijo(artefactos)
 		artefactos.removeAll(artefactos)
 	}
-	method poder(_artefacto){
-		poderDePelea += _artefacto.poder
+	method nuevoPoder(_artefacto){
+		poderDePelea += _artefacto.cuanPoderoso()
+	}
+	method cuantoPoder(){
+			return poderDePelea
 	}
 	method esPoderoso() {
 		return poderDePelea >= 10
 	}
 	method vencer(_enemigo) {
-		return poderDePelea > _enemigo.poder
+		return poderDePelea > _enemigo.cuanPoderoso()
 	}
 }
 object castillo {
-	var alijo = #{}
+	const alijo = #{}
 	method queHayEnAlijo(){
 		return alijo
 	}
 	method guardoEnAlijo(_artefacto){
 		alijo.addAll(_artefacto)
 	}
+/* 	method masPoderoso(){
+		
+		artef = 
+		return artef.poder()
+	}*/
 }
 object espadaDelDestino {
-	const poder = rolando.poder(_poder)
+	const poder = rolando.cuantoPoder()
 	method poder(){
 		return poder
 	}
@@ -63,7 +72,7 @@ object armaduraValyrio {
 	}
 }
 object libroDeHechizos {
-	var poder = [4, rolando.poder(), castillo.masPoderoso]
+	/*const poder = [4, rolando.cuantoPoder(), castillo.masPoderoso()]*/
 }
 object archibaldo {
 	const poder = 16
@@ -75,7 +84,7 @@ object archibaldo {
 		return morada
 	}
 }
-object astra {
+object caterina {
 	const poder = 28
 	const morada = 'Fortaleza de Acero'
 	method cuanPoderoso(){
@@ -85,7 +94,7 @@ object astra {
 		return morada
 	}
 }
-object archibaldo {
+object astra {
 	const poder = 14
 	const morada = 'Torre de Marfil'
 	method cuanPoderoso(){

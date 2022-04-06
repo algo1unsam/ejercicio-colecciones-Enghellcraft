@@ -1,17 +1,26 @@
 import capos.*
 
 test "encontrar artefactos" {
-	
+	assert.equals([], rolando.queLlevo())
+	rolando.recolectaObjeto(espadaDelDestino)
+	assert.equals([espadaDelDestino], rolando.queLlevo())
+	assert.equals([espadaDelDestino], rolando.queLevante())
+	rolando.recolectaObjeto(libroDeHechizos)
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLevante())
+	rolando.recolectaObjeto(collarDivino)
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLevante())
 }
 
-test "castillo" {
+//test "castillo" {
 	
-}
+//}
 
-test "posesiones" {
+//test "posesiones" {
 	
-}
+//}
 
-test "historia" {
+//test "historia" {
 	
-}
+//}
