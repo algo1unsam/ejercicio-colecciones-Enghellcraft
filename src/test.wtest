@@ -12,9 +12,24 @@ test "encontrar artefactos" {
 	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLlevo())
 	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLevante())
 }
-
-//test "castillo" {
-	
+test "castillo" {
+	assert.equals([], rolando.queLlevo())
+	rolando.recolectaObjeto(espadaDelDestino)
+	assert.equals([espadaDelDestino], rolando.queLlevo())
+	assert.equals([espadaDelDestino], rolando.queLevante())
+	rolando.recolectaObjeto(libroDeHechizos)
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLevante())
+	rolando.dejarEnCastillo()
+	assert.equals([], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos], rolando.queLevante())
+	rolando.recolectaObjeto(collarDivino)
+	assert.equals([collarDivino], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos, collarDivino], rolando.queLevante())
+	rolando.dejarEnCastillo()
+	assert.equals([], rolando.queLlevo())
+	assert.equals([espadaDelDestino, libroDeHechizos, collarDivino], rolando.queLevante())
+	}
 //}
 
 //test "posesiones" {

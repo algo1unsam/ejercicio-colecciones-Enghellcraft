@@ -5,7 +5,7 @@ object rolando {
 	var poderDePelea = 5
 	const capacidad = 2
 	method recolectaObjeto(_artefacto){
-		if (artefactos.size() <= capacidad){
+		if (artefactos.size() < capacidad){
 			ordenArtefactos.add(_artefacto)
 			artefactos.add(_artefacto)
 			}
@@ -79,6 +79,7 @@ object archibaldo {
 	const morada = 'Palacio de Marmol'
 	method cuanPoderoso(){
 		return poder
+		
 	}
 	method dondeVive(){
 		return morada
