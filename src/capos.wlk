@@ -2,8 +2,10 @@
 object rolando {
 	const artefactos = []
 	const ordenArtefactos = []
-	var poderDePelea = 5
-	const capacidad = 2
+	var poderBase = 5
+	var poderDePelea = poderBase
+	var capacidad = 2
+	var contBat = 0
 	method recolectaObjeto(_artefacto){
 		if (artefactos.size() < capacidad){
 			ordenArtefactos.add(_artefacto)
@@ -29,17 +31,28 @@ object rolando {
 	method tengoArtefacto(_artefacto){
 		return ordenArtefactos.contains(_artefacto)
 	}
-	method nuevoPoder(_artefacto){
-		poderDePelea += _artefacto.cuanPoderoso()
+	method nuevoPoder(){
+		return self.cuantoPoderBase() + self.sumatoriaPoderes(rolando)
+	}
+	method sumatoriaPoderes(rolando){
+	return artefactos.sum({artefacto => artefacto.poder()})
+	}
+	method cuantoPoderBase() {
+		return poderBase
 	}
 	method cuantoPoder(){
-			return poderDePelea
+		return poderDePelea
 	}
 	method esPoderoso() {
 		return poderDePelea >= 10
 	}
 	method vencer(_enemigo) {
+		contBat += 1
+		poderBase += 1
 		return poderDePelea > _enemigo.cuanPoderoso()
+	}
+	method contadorBatallas(){
+		return contBat
 	}
 }
 object castillo {
@@ -50,22 +63,38 @@ object castillo {
 	method guardoEnAlijo(_artefacto){
 		alijo.addAll(_artefacto)
 	}
-/* 	method masPoderoso(){
-		
-		artef = 
-		return artef.poder()
-	}*/
+  	method masPoderoso(duenio){
+		return alijo.maxIfEmpty({artefacto => artefacto.poder(duenio)})
+	} 
 }
 object espadaDelDestino {
-	const poder = rolando.cuantoPoder()
+	var poder = self.calculoPoder()
+	var cont = 0
 	method poder(){
 		return poder
 	}
+	method calculoPoder(){
+		if (cont < 1) {
+			cont += 1
+			return	rolando.cuantoPoder()
+		} else {
+			cont += 1
+			return	(rolando.cuantoPoder())/2
+		}
+	}
 }
 object collarDivino {
-	const poder = 3
+	var poder = self.calculoPoder()
+	var cantidadBatallas = 0
 	method poder(){
 		return poder
+	}
+	method calculoPoder(){
+		if (rolando.cuantoPoder() <= 6) {
+			return	3
+		} else {
+			return	(3 + rolando.contadorBatallas()) 
+		}
 	}
 }
 object armaduraValyrio {
@@ -75,7 +104,34 @@ object armaduraValyrio {
 	}
 }
 object libroDeHechizos {
-	/*const poder = [4, rolando.cuantoPoder(), castillo.masPoderoso()]*/
+	const poder = 4 + rolando.cuantoPoder() + castillo.masPoderoso(duenio)
+	const hechizos = []
+	method poder(){
+		
+		return poder
+	}
+/////////
+	method poder(duenio){
+		return hechizos.first().poder(duenio)
+	}	
+	method agregarHechizo(hechizo){
+		hechizos.add(hechizo)
+	}
+}
+object bendicion {
+	method poder(duenio){
+		return 4
+	}
+}
+object invisibilidad {
+	method poder(duenio){
+		return duenio.poder()
+	}
+}
+object invicacion {
+	method poder(duenio){
+		return poder
+	}
 }
 object archibaldo {
 	const poder = 16
